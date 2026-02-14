@@ -1,4 +1,3 @@
-from xml.parsers.expat import model
 import streamlit as st
 import numpy as np
 import pickle
@@ -25,20 +24,25 @@ def predict_next_word(model, tokenizer, text, max_sequence_len):
     return None
 
 # Streamlit app
-st.title("LSTM Next Word Prediction")
-input_text = st.text_input("Enter a sequence of words:")
-if st.button("Predict Next Word"):  
-    max_sequence_len = model1.input_shape[1] + 1
-    next_word = predict_next_word(model1, tokenizer, input_text, max_sequence_len)
-    st.write(f"Predicted Next Word: {next_word}")
+st.title("Next Word Prediction with LSTM and GRU")
+# LSTM input
+input_text_lstm = st.text_input(
+    "Enter words for LSTM:",
+    key="lstm_input"
+)
+if st.button("Predict Next Word (LSTM)", key="predict_lstm"):
+    max_len1 = model1.input_shape[1] + 1
+    next_word1 = predict_next_word(model1, tokenizer, input_text_lstm, max_len1)
+    st.write(f"LSTM Next Word: {next_word1}")
 
-
-st.title("GRU Next Word Prediction")
-input_text2 = st.text_input("Enter a sequence of words:")    
-if st.button("Predict Next Word GRU"):  
-    max_sequence_len = model2.input_shape[1] + 1
-    next_word = predict_next_word(model2, tokenizer, input_text2, max_sequence_len)
-    st.write(f"Predicted Next Word: {next_word}")
-
+# GRU input
+input_text_gru = st.text_input(
+    "Enter words for GRU:",
+    key="gru_input"
+)
+if st.button("Predict Next Word (GRU)", key="predict_gru"):
+    max_len2 = model2.input_shape[1] + 1
+    next_word2 = predict_next_word(model2, tokenizer, input_text_gru, max_len2)
+    st.write(f"GRU Next Word: {next_word2}")
 
 
