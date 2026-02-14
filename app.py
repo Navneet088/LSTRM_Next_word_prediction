@@ -34,10 +34,11 @@ if st.button("Predict Next Word"):
 
 
 st.title("GRU Next Word Prediction")
-input_text = st.text_input("Enter a sequence of words:")    
+input_text2 = st.text_input("Enter a sequence of words:")    
 if st.button("Predict Next Word GRU"):  
     max_sequence_len = model2.input_shape[1] + 1
-    next_word = predict_next_word(model2, tokenizer, input_text, max_sequence_len)
+    next_word = predict_next_word(model2, tokenizer, input_text2, max_sequence_len)
     st.write(f"Predicted Next Word: {next_word}")
+
 
 
