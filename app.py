@@ -1,3 +1,4 @@
+from xml.parsers.expat import model
 import streamlit as st
 import numpy as np
 import pickle
@@ -7,7 +8,8 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 
 # Load the trained model and tokenizer
-model = load_model('lstm_model.h5')
+model1 = load_model('lstm_model.h5')
+model2 = load_model('gru_model.h5')
 #lode the tokenizer
 with open('tokenizer.pickle', 'rb') as handle:
     tokenizer = pickle.load(handle)
@@ -26,6 +28,16 @@ def predict_next_word(model, tokenizer, text, max_sequence_len):
 st.title("LSTM Next Word Prediction")
 input_text = st.text_input("Enter a sequence of words:")
 if st.button("Predict Next Word"):  
-    max_sequence_len = model.input_shape[1] + 1
-    next_word = predict_next_word(model, tokenizer, input_text, max_sequence_len)
+    max_sequence_len = model1.input_shape[1] + 1
+    next_word = predict_next_word(model1, tokenizer, input_text, max_sequence_len)
     st.write(f"Predicted Next Word: {next_word}")
+
+
+st.title("GRU Next Word Prediction")
+input_text = st.text_input("Enter a sequence of words:")    
+if st.button("Predict Next Word GRU"):  
+    max_sequence_len = model2.input_shape[1] + 1
+    next_word = predict_next_word(model2, tokenizer, input_text, max_sequence_len)
+    st.write(f"Predicted Next Word: {next_word}")
+
+
